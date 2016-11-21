@@ -1,3 +1,7 @@
 version: '2'
 services:
   redisDB:
+    build: .
+    command: sh -c 'nodemon seneca_config.coffee'
+    expose:
+      - 8080
