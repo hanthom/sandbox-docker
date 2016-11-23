@@ -8,11 +8,11 @@ tasks = require "#{__dirname}/tasks"
 paths =
   pug:
     compile: 'src/**/*.pug'
-    all: ['src/**/*.pug']
+    all: 'src/**/*.pug'
   server: 'build/server-assets/server.js'
   coffee:
     compile: 'src/**/*.coffee'
-    all: ['src/**/*.coffee']
+    all: 'src/**/*.coffee'
 
 gulp.task 'default', (cb) ->
   runSequence 'build'

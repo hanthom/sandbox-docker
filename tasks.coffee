@@ -64,10 +64,10 @@ module.exports =
   pug: (src, dest) ->
     pug = require 'gulp-pug'
     {src, dest} = _fixPath src, dest
-    gulp.src src
     stream = gulp.src src
     stream
       .pipe pug()
+    stream
       .pipe gulp.dest dest
 
   ##### move #####
