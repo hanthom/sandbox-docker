@@ -7,12 +7,12 @@ tasks = require "#{__dirname}/tasks"
 # Place to store paths that will be used again
 paths =
   pug:
-    compile: 'src/**/*.pug'
-    all: 'src/**/*.pug'
+    compile: 'src/client/*.pug'
+    all: ['src/**/*.pug']
   server: 'build/server-assets/server.js'
   coffee:
     compile: 'src/**/*.coffee'
-    all: 'src/**/*.coffee'
+    all: ['src/**/*.coffee']
 
 gulp.task 'default', (cb) ->
   runSequence 'build'
@@ -23,13 +23,13 @@ gulp.task 'build', (cb) ->
   runSequence ['pug', 'coffee'], cb
 
 gulp.task 'coffee', ->
-  coffee paths.coffee.compile, 'build'
+  coffee paths.coffee.compile, './build'
 
 gulp.task 'pug', ->
-  pug paths.pug.compile, 'build'
+  pug paths.pug.compile, './build'
 
-gulp.task 'nodemon', ->
-  nodemon paths.server
+gulp.task 'nodemon', (cb)->
+  nodemon paths.server, cb
 
 gulp.task 'watch', ->
   watch paths.coffee.all, ->

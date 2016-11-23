@@ -6,7 +6,7 @@ sourcemaps = require "gulp-sourcemaps"
 # Handles for the paths that ignore files
 # @returns: string
 _addBase = (path) ->
-  base = "#{__dirname}/"
+  base = "#{__dirname}/../#{path}"
   if path[0] is '!'
     path = path.slice 1, path.length - 1
     "!#{base}"
@@ -17,7 +17,7 @@ _addBase = (path) ->
 # Dynamically calls _addBase fn with a src and dest
 # @params: src -> string or array
 # @returns: object
-_fixPath = (service, src, dest)->
+_fixPath = (src, dest)->
   fixedPaths = {}
   if Array.isArray src
     # Handling for array type src
@@ -38,7 +38,7 @@ module.exports =
   coffee: (src, dest)->
     coffee = require 'gulp-coffee'
     sourcemaps = require 'gulp-sourcemaps'
-    {src, dest} = fixPath src, dest
+    {src, dest} = _fixPath src, dest
     stream = gulp.src src
     stream
       .pipe sourcemaps.init()
@@ -52,7 +52,7 @@ module.exports =
   ##### nodemon #####
   # Runs nodemon with the given script
   nodemon: (script)->
-    script = _addBase script
+    # script = _addBase script
     nodemon = require 'gulp-nodemon'
     nodemon
       script: script
@@ -81,7 +81,7 @@ module.exports =
   # Watches the specified files for changes and runs the
   # @params: cb -> function
   watch: (path, cb)->
-    {src} = fixPath path
+    {src} = _fixPath path
     gulp.watch src, cb
 
   # serverRunner: (script)->
