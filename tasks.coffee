@@ -6,7 +6,8 @@ sourcemaps = require "gulp-sourcemaps"
 # Handles for the paths that ignore files
 # @returns: string
 _addBase = (path) ->
-  base = "#{__dirname}/../#{path}"
+  base = "#{__dirname}/#{path}"
+  console.log "BASE", base
   if path[0] is '!'
     path = path.slice 1, path.length - 1
     "!#{base}"
@@ -30,6 +31,7 @@ _fixPath = (src, dest)->
   fixedPaths =
     src: fixedSrc
     dest: fixedDest
+  console.log "FIXEDPATHS", fixedPaths
   fixedPaths
 
 module.exports =

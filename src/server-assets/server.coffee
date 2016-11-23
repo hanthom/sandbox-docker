@@ -1,6 +1,6 @@
 app = require "#{__dirname}/app"
 
-{port} = require "#{__dirname}/config/serverConfig"
+port = 8000
 
 server = app.listen port, (e)->
   if e then console.log 'Server START ERROR =====>', e

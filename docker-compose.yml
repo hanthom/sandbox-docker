@@ -5,3 +5,5 @@ services:
     command: sh -c 'nodemon seneca_config.coffee'
     expose:
       - 8080
+  web:
+    build:
