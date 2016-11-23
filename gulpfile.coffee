@@ -15,8 +15,7 @@ paths =
     all: ['src/**/*.coffee']
 
 gulp.task 'default', (cb) ->
-  runSequence 'setup'
-  , 'build'
+  runSequence 'build'
   , 'nodemon'
   , cb
 

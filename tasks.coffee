@@ -22,11 +22,11 @@ _fixPath = (service, src, dest)->
   if Array.isArray src
     # Handling for array type src
     fixedSrc = []
-    fixedSrc.push addBase path for path in src
+    fixedSrc.push _addBase path for path in src
   else
-    fixedSrc = addBase src
+    fixedSrc = _addBase src
   if dest
-    fixedDest = addBase dest
+    fixedDest = _addBase dest
   fixedPaths =
     src: fixedSrc
     dest: fixedDest
