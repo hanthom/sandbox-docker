@@ -1,0 +1,14 @@
+(function() {
+  var angular;
+
+  angular = require('angular');
+
+  require('bootstrap');
+
+  angular.module('sandbox-docker').config(function($urlRouterProvider, $httpProvider, $stateProvider) {
+    return $urlRouterProvider.otherwise('home');
+  });
+
+}).call(this);
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2xpZW50L2FwcC5qcyIsInNvdXJjZXMiOlsiY2xpZW50L2FwcC5jb2ZmZWUiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQSxNQUFBOztFQUFBLE9BQUEsR0FBVSxPQUFBLENBQVEsU0FBUjs7RUFDVixPQUFBLENBQVEsV0FBUjs7RUFFQSxPQUFPLENBQUMsTUFBUixDQUFlLGdCQUFmLENBQ0UsQ0FBQyxNQURILENBQ1UsU0FBQyxrQkFBRCxFQUFxQixhQUFyQixFQUFvQyxjQUFwQztXQUNOLGtCQUFrQixDQUFDLFNBQW5CLENBQTZCLE1BQTdCO0VBRE0sQ0FEVjtBQUhBIiwic291cmNlc0NvbnRlbnQiOlsiYW5ndWxhciA9IHJlcXVpcmUgJ2FuZ3VsYXInXG5yZXF1aXJlICdib290c3RyYXAnXG5cbmFuZ3VsYXIubW9kdWxlICdzYW5kYm94LWRvY2tlcidcbiAgLmNvbmZpZyAoJHVybFJvdXRlclByb3ZpZGVyLCAkaHR0cFByb3ZpZGVyLCAkc3RhdGVQcm92aWRlciktPlxuICAgICR1cmxSb3V0ZXJQcm92aWRlci5vdGhlcndpc2UgJ2hvbWUnXG4iXX0=

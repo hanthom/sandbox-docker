@@ -1,9 +1,10 @@
 version: '2'
 services:
-  redisDB:
-    build: .
-    command: sh -c 'nodemon seneca_config.coffee'
-    expose:
-      - 8080
   web:
     build:
+      context: './modules/web/'
+      dockerfile: 'Dockerfile.dev'
+    command: sh -c 'nodemon server-assets/server.js'
+    volumes:
+      - ./modules/web/build:/usr/proj/build
+      - /usr/proj/node_modules

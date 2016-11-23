@@ -9,7 +9,7 @@ paths =
   pug:
     compile: 'src/**/*.pug'
     all: ['src/**/*.pug']
-  server: 'build/server-assets/server.js'
+  server: 'modules/web/build/server-assets/server.js'
   coffee:
     compile: 'src/**/*.coffee'
     all: ['src/**/*.coffee']
@@ -19,20 +19,24 @@ gulp.task 'default', (cb) ->
   , 'nodemon'
   , cb
 
-gulp.task 'build', (cb) ->
-  runSequence ['pug', 'coffee'], cb
+gulp.task 'build', [
+  'web:build'
+]
 
-gulp.task 'coffee', ->
-  coffee paths.coffee.compile, 'build'
+gulp.task 'web:build', (cb) ->
+  runSequence ['web:pug', 'web:coffee'], cb
 
-gulp.task 'pug', ->
-  pug paths.pug.compile, 'build'
+gulp.task 'web:coffee', ->
+  coffee 'web', paths.coffee.compile, 'build'
+
+gulp.task 'web:pug', ->
+  pug 'web', paths.pug.compile, 'build'
 
 gulp.task 'nodemon', (cb)->
   nodemon paths.server, cb
 
-gulp.task 'watch', ->
-  watch paths.coffee.all, ->
-    runSequence 'coffee'
-  watch paths.pug.all, ->
-    runSequence 'pug'
+# gulp.task 'watch', ->
+#   watch paths.coffee.all, ->
+#     runSequence 'coffee'
+#   watch paths.pug.all, ->
+#     runSequence 'pug'

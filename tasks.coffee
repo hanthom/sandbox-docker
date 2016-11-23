@@ -6,7 +6,7 @@ sourcemaps = require "gulp-sourcemaps"
 # Handles for the paths that ignore files
 # @returns: string
 _addBase = (path) ->
-  base = "#{__dirname}/#{path}"
+  base = "#{__dirname}/modules/#{path}/"
   console.log "BASE", base
   if path[0] is '!'
     path = path.slice 1, path.length - 1
@@ -18,16 +18,23 @@ _addBase = (path) ->
 # Dynamically calls _addBase fn with a src and dest
 # @params: src -> string or array
 # @returns: object
-_fixPath = (src, dest)->
+_fixPath = (service, src, dest)->
+  if !dest then dest = 'build'
   fixedPaths = {}
   if Array.isArray src
     # Handling for array type src
     fixedSrc = []
-    fixedSrc.push _addBase path for path in src
+    for path in src
+      if service
+        fixedSrc.push _addBase "#{service}/#{path}"
+      else
+        fixedSrc.push _addBase path
   else
-    fixedSrc = _addBase src
-  if dest
-    fixedDest = _addBase dest
+    if service
+      fixedSrc = _addBase "#{service}/#{src}"
+    else
+      fixedSrc = _addBase src
+  fixedDest = _addBase "#{service}/#{dest}"
   fixedPaths =
     src: fixedSrc
     dest: fixedDest
@@ -37,10 +44,10 @@ _fixPath = (src, dest)->
 module.exports =
   ##### coffee #####
   # Compiles coffeescript files to js
-  coffee: (src, dest)->
+  coffee: (service, src, dest)->
     coffee = require 'gulp-coffee'
     sourcemaps = require 'gulp-sourcemaps'
-    {src, dest} = _fixPath src, dest
+    {src, dest} = _fixPath service, src, dest
     stream = gulp.src src
     stream
       .pipe sourcemaps.init()
@@ -63,9 +70,9 @@ module.exports =
 
   ##### pug #####
   # Compiles pug into HTML
-  pug: (src, dest) ->
+  pug: (service, src, dest) ->
     pug = require 'gulp-pug'
-    {src, dest} = _fixPath src, dest
+    {src, dest} = _fixPath service, src, dest
     stream = gulp.src src
     stream
       .pipe pug()
@@ -74,8 +81,8 @@ module.exports =
 
   ##### move #####
   # Moves src files to dest path
-  move: (src, dest)->
-    {src, dest} = _fixPath src, dest
+  move: (service, src, dest)->
+    {src, dest} = _fixPath service, src, dest
     gulp.src src
       .pipe gulp.dest dest
 
