@@ -8,3 +8,7 @@ services:
     volumes:
       - ./modules/web/build:/usr/proj/build
       - /usr/proj/node_modules
+    links:
+      - redis
+  redis:
+    image: redis:3.0

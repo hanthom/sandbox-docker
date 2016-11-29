@@ -12,9 +12,6 @@
     "gulp-nodemon": "^2.2.1",
     "gulp-pug": "^3.1.0",
     "gulp-sourcemaps": "^2.2.0",
-    "ioredis": "^2.4.0",
-    "q": "^1.4.1",
-    "redis": "^2.6.3",
     "run-sequence": "^1.2.2"
   },
   "devDependencies": {},

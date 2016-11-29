@@ -1,0 +1,12 @@
+FROM node:argon
+
+RUN mkdir /usr/proj
+
+WORKDIR /usr/proj
+ADD build ./build
+ADD package.json .
+
+RUN npm i -g nodemon
+RUN npm i
+
+WORKDIR /usr/proj/build
