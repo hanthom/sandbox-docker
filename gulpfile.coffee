@@ -16,7 +16,6 @@ paths =
 
 gulp.task 'default', (cb) ->
   runSequence 'build'
-  , 'nodemon'
   , cb
 
 gulp.task 'build', [

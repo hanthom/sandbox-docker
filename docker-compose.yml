@@ -10,5 +10,7 @@ services:
       - /usr/proj/node_modules
     links:
       - redis
+    ports:
+      - '9999:8000'
   redis:
     image: redis:3.0

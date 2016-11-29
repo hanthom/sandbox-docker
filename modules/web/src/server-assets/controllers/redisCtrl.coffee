@@ -16,14 +16,32 @@ module.exports =
       VALUE: #{val}
       """
       redis.set(key, val)
-  getCache: ()->
+  getCache: ->
     stream = redis.scanStream()
     keys = []
+    promises = []
+    dfd = q.defer()
     stream.on('data', (results)->
       for key in results
         temp = redis.get(key)
-        newObj = {}
-        newObj[key] = temp
-        keys.push newObj
+        keys.push key
+        promises.push temp
+      q.all promises
+      .then (updatedKeys)->
+        i=0
+        combinedKeys = []
+        flag = false
+        while i < 1
+          y = 0
+          for key in keys
+            combinedKeys[y] =
+              "#{key}": updatedKeys[y]
+            y++
+          i++
+        if updatedKeys.length < 1
+          dfd.reject()
+        else
+          console.log "ELSE", combinedKeys
+          dfd.resolve combinedKeys
     )
-    return keys
+    dfd.promise
