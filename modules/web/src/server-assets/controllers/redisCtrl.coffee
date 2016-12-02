@@ -8,14 +8,41 @@ module.exports =
   # Posts the data that is being sent in to the Redis cache server
   postCache: (postObj)->
     console.log "POSTObj", postObj
+    {vin, data} = postObj
+    redis.sadd 'vins', vin
+    redis.hmset vin, data
     # obj =
     #   a_key: 'abc'
     #   b_key: '123'
-    for key, val of postObj
-      console.log """KEY: #{key}
-      VALUE: #{val}
-      """
-      redis.set(key, val)
+    # for key, val of data
+    #   console.log """KEY: #{key}
+    #   VALUE: #{val}
+    #   """
+  getHashCache: ->
+    console.log "getHashCache Controller start"
+    dfd = q.defer()
+    promises = redis.smembers 'vins'
+    q.all promises
+    .then (vinsList)->
+      promiseObjs = []
+      for vin in vinsList
+        returnObj = redis.hgetall vin
+        promiseObjs.push returnObj
+      q.all promiseObjs
+      .then (returnedObjs)->
+        i = 0
+        returnList = []
+        for vin in vinsList
+          newObj =
+            vin: vin
+            data: returnedObjs[i]
+          returnList.push newObj
+          i++
+        dfd.resolve returnList
+    dfd.promise
+  deleteHash: ->
+    console.log "DeleteHash CTRL FIRED"
+    redis.hdel('myhash2','id', 'make', 'model')
   getCache: ->
     stream = redis.scanStream()
     keys = []

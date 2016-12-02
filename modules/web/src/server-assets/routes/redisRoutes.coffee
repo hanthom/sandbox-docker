@@ -11,7 +11,8 @@ module.exports = (app)->
         .status 201
         .end()
     .get (req, res)->
-      redisCtrl.getCache()
+      console.log "getHashCache START"
+      redisCtrl.getHashCache()
         .then (allCache)->
           console.log "allCache", allCache
           res
@@ -19,3 +20,9 @@ module.exports = (app)->
             .send allCache
         .catch (err)->
           console.log "ERROR", err, "RES", res
+    .delete (req, res)->
+      console.log "DELETE ROUTE FIRED"
+      redisCtrl.deleteHash()
+      res
+        .status 204
+        .end()
